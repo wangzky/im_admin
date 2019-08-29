@@ -1,0 +1,15 @@
+
+server:
+  port: 9999
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/im?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

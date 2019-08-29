@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+</head>
+<body>
+<div style="margin: auto;text-align: center">
+    <h1>IM DEMO</h1>
+    <div style="margin-top: 50px">
+        <!--<form>-->
+            用户名：<input id="userName" style="width: 150px"><br>
+            密码：<input type="password" id="passWord" style="width: 150px"><br>
+            <button onclick="login()"style="margin-top: 20px">登录</button>
+        <!--</form>-->
+    </div>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    function login() {
+        var userName = document.getElementById("userName").value;
+        var passWord = document.getElementById("passWord").value;
+        console.log("=="+userName)
+        console.log("=="+passWord)
+        $.ajax({
+            url:"/user/login?username="+userName+"&password="+passWord,
+            type:"POST",
+            success:function (res) {
+                console.log(res.toString())
+                console.log("登录成功")
+                jump(userName , res.toString());
+            },
+            error:function (res) {
+                alert("登录失败！检查用户名密码！")
+            }
+        })
+    }
+    function jump(username , token){
+        sessionStorage.setItem("token", token);
+        $.ajax({
+            url:"/websocket/"+username,
+            type:"POST",
+            success:function(res){
+                $("html").html(res)
+            },
+            error:function (res) {
+                alert("失败！")
+            },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", 'token=' + token);
+            }
+        })
+    }
+</script>

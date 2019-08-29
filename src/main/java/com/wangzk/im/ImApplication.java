@@ -1,0 +1,18 @@
+package com.wangzk.im;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@SpringBootApplication
+@EntityScan("com.wangzk.im.bean")
+@EnableJpaRepositories(basePackages = "com.wangzk.im.dao")
+public class ImApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ImApplication.class, args);
+    }
+
+}
